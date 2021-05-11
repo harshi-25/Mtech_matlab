@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>MATLAB PROGRAMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700,400italic|Titillium+Web:400,300'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body onload="prettyPrint()">
+<!-- partial:index.partial.html -->
+<div class="main">
+  <h1 style="text-align: center; font-family:Goblin one; color: black; font-size: 30px;">MTECH MATLAB PROGRAMS</h1>
+  <br>
+  <ul>
+    <h2 class="list-heading">1. a) Write a MATLAB Program for Hebb Net to classify two dimensional input
+      patterns in bipolar with given targets.</h2>
+      <h1 class="list-heading">
+        <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+        <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+      </h1>
+    <li id="1a">
+      <div class="copy-content">
+        <pre>
+        <code>
+          %Hebb network to classify two dimensional input patterns<br>
+          clear;<br>
+          clc;<br>
+          %input patterns<br>
+          E=[1 1 1 1 1 -1 -1 -1 1 1 1 1 1 -1 -1 -1 1 1 1 1];<br>
+          F=[1 1 1 1 1 -1 -1 -1 1 1 1 1 1 -1 -1 -1 1 -1 -1 -1];<br>
+          X(1,1:20)=E;<br>
+          X(2,1:20)=F;<br>
+          W(1:20)=0;<br>
+          t=[1 -1];<br>
+          b=0;<br>
+          for i=1:2<br>
+              W=W+X(i,1:20)*t(i);<br>
+              b=b+t(i);<br>
+          end<br>
+           disp('Weight matrix');<br>
+           disp(W);<br>
+           disp('Bias');<br>
+              disp(b);  <br>
+        </code>
+      </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+
+    <h2 class="list-heading"> 1. b) Generate XOR function and ANDNOT function using McCulloch-Pitts Neural
+      Network.</h2>
+      <h1 class="list-heading">
+        <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+        <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+      </h1>
+    <li id="1b">
+      <div class="copy-content">
+        <pre>
+        <code>
+          %ANDNOT function Using MCCulloch-Pitts neuron<br>
+          clear;<br>
+          clc;<br>
+          %Getting Weights and threshold value<br>
+          disp('Enter Weights');<br>
+          W1=input('Weight W1=');<br>
+          W2=input('Weight W2=');<br>
+          disp('Enter Threshold Value');<br>
+         theta=input('theta=');<br>
+         y=[0 0 0 0];<br>
+         x1=[0 0 1 1];<br>
+         x2=[0 1 0 1];<br>
+         z=[0 0 1 0];<br>
+              con=1;<br>
+           while con<br>
+                zin=x1*W1+x2*W2;<br>
+                  for i=1:4<br>
+             if zin(i)>=theta<br>
+                 y(i)=1;<br>
+             else<br>
+                 y(i)=0;<br>
+             end<br>
+         end<br>
+         disp('Output of Net');<br>
+         disp(y);<br>
+         if y==z<br>
+             con=0;<br>
+         else<br>
+             disp('Net is not learning enter another sets of weights and threshold value');<br>
+             W1=input('Weight W1='); <br>
+             W2=input('Weight W2=');<br>
+               theta=input('theta=');<br>
+         end<br>
+     end<br>
+     disp('Mcculoch-Pitts Net for ANDNOT function');<br>
+     disp('Weights of Neuron');<br>
+     disp(W1);<br>
+     disp(W2);<br>
+     disp('Threshold Value');<br>
+     disp(theta);<br>
+        </code>
+      </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+
+    <h2 class="list-heading"> 3. Write a MATLAB program to apply Back Propagation network for pattern
+recognition problem.</h2>
+<h1 class="list-heading">
+  <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+  <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+</h1>
+    <li id="3">
+      <div class="copy-content">
+        <pre>
+          <code>
+            %back propogation network<br>
+            clear all;<br>
+            clc;<br>
+            disp('Back Propogation Network');<br>
+            v=[0.7 -0.4;-0.2 0.3]<br>
+            x=[0 1]<br>
+            t=[1]<br>
+            w=[0.5;0.1]<br>
+            t1=0<br>
+            wb=-0.3<br>
+            vb=[0.4 0.6]<br>
+            alpha=0.25<br>
+            e=1;<br>
+            temp=0;<br>
+            while (e<=3)<br>
+              e<br>
+              for i=1:2<br>
+                for j=1:2<br>
+                  temp=temp+(v(j,i)*x(j));<br>
+                end<br>
+                zin(i)=temp+vb(i);<br>
+                temp1=e -zin(i);<br>
+                fz(i)=(1/(1+temp1));<br>
+                z(i)=fz(i);<br>
+                fdz(i)=fz(i)*(1-fz(i));<br>
+                temp=0;<br>
+              end<br>
+              for k=1<br>
+                for j=1:2<br>
+                  temp=temp+z(j)*w(j,k);<br>
+                end<br>
+                yin(k)=temp+wb(k);<br>
+                fy(k)=(1/(1+(e -yin(k))));<br>
+                y(k)=fy(k);<br>
+                temp=0;<br>
+              end<br>
+              for k=1<br>
+                fdy(k)=fy(k)*(1-fy(k));<br>
+                delk(k)=(t(k)-y(k))*fdy(k);<br>
+              end<br>
+              for k=1<br>
+                for j=1:2<br>
+                  dw(j,k)=alpha*delk(k)*z(j);<br>
+                end<br>
+                dwb(k)=alpha*delk(k);<br>
+              end<br>
+              for j=1:2<br>
+                for k=1<br>
+                  delin(j)=delk(k)*w(j,k);<br>
+                end<br>
+                delj(j)=delin(j)*fdz(j);<br>
+              end<br>
+              for i=1:2<br>
+                for j=1:2<br>
+                  dv(i,j)=alpha*delj(j)*x(i);<br>
+                end<br>
+                dvb(i)=alpha*delj(i);<br>
+              end<br>
+              for k=1<br>
+                for j=1:2<br>
+                  w(j,k)=w(j,k)+dw(j,k);<br>
+                end<br>
+                wb(k)=wb(k)+dwb(k);<br>
+              end<br>
+              w,wb<br>
+              for i=1:2<br>
+                for j=1:2<br>
+                  v(i,j)=v(i,j)+dv(i,j);<br>
+                end<br>
+                vb(i)=vb(i)+dvb(i);<br>
+              end<br>
+              v,vb<br>
+              te(e)=e;<br>
+              e=e+1;<br>
+            end<br>
+          </code>
+        </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+
+    <h2 class="list-heading"> 4. Develop a Kohonen Self Organizing feature map for image recognition problem.</h2>
+    <h1 class="list-heading">
+      <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+      <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+    </h1>
+    <li id="4">
+      <div class="copy-content">
+        <pre>
+          <code>
+            %Kohonen Self organizing feature maps<br>
+            clear all;<br>
+            clc;<br>
+            disp('Kohonen Self organizing feature maps');<br>
+            disp('The input patterns are');<br>
+            x=[1 1 0 0; 0 0 0 1; 1 0  0 0;0 0 1 1]<br>
+            t=1;<br>
+            alpha(t)=0.6;<br>
+            e=1;<br>
+            disp('Since we have 4 input pattern and cluster unit to be formed is 2, the weight matrix is');<br>
+            w=[0.2 0.8; 0.6 0.4; 0.5 0.7; 0.9 0.3];<br>
+            disp('the learning rate of this epoch is');<br>
+            alpha<br>
+            while(e<=3)<br>
+                i=1;<br>
+                j=1;<br>
+                k=1;<br>
+                m=1;<br>
+                disp('Epoch =');<br>
+            e<br>
+            while(i<=4)<br>
+                for j=1:2<br>
+                    temp=0;<br>
+                    for k=1:4<br>
+                        temp=temp+w(k,j) -(x(i,k));<br>
+                       end<br>
+                    D(j)=temp<br>
+                end<br>
+                if(D(1)<D(2))<br>
+                    J=1;<br>
+                else<br>
+                    J=2;<br>
+                end<br>
+                disp('The winning unit is');<br>
+                J<br>
+            disp('Weight updation');<br>
+            for m=1:4<br>
+                w(m,J)=w(m,J) + (alpha(e) * (x(i,m)-w(m,J)));<br>
+            end<br>
+               w<br>
+               i=i+1;<br>
+            end<br>
+            temp=alpha(e);<br>
+            e=e+1;<br>
+            alpha(e)=(0.5*temp);<br>
+            disp('First Epoch completed');<br>
+            disp('Learning rate updated for second epoch');<br>
+            alpha(e)<br>
+            end<br>
+          </code>
+        </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+    
+    <h2 class="list-heading"> 5. Write a MATLAB program to implement Discrete Hopfield Network and test the
+      input pattern.</h2>
+      <h1 class="list-heading">
+        <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+        <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+      </h1>
+    <li id="5">
+      <div class="copy-content">
+        <pre>
+          <code>
+            %discrete hopfield network<br>
+            clear all;<br>
+            clc;<br>
+            disp('Discrete Hopfield Network');<br>
+            theta=0;<br>
+            X=[1 -1 -1 -1;-1 1 1 -1;-1 -1 -1 1];<br>
+            %calculating Weight Matrix<br>
+            W=X'*X<br>
+            %calculating Energy<br>
+            k=1;<br>
+            while(k<=3)<br>
+             temp=0;<br>
+                for i=1:4<br>
+                    for j=1:4<br>
+                        temp=temp+(X(k,i)*W(i,j)*X(k,j));<br>
+                    end<br>
+                end<br>
+                E(k)=(-0.5)*temp;<br>
+                k=k+1;<br>
+            end<br>
+            %Energy Function for 3sampls<br>
+            E<br>
+            %Test for given pattern s[-1 1 -1 -1]<br>
+            disp('Given input pattern for testing');<br>
+            x1=[-1 1 -1 -1]<br>
+            temp=0;<br>
+            for i=1:4<br>
+            for j=1:4<br>
+                temp=temp+(x1(i)*W(i,j)*x1(j));<br>
+            end<br>
+            end<br>
+            SE=(-0.5)*temp<br>
+            disp('By Synchronous Updation method');<br>
+            disp('The net input calculated is');<br>
+            yin=x1*W<br>
+            for i=1:4<br>
+            if(yin(i)>theta)<br>
+                y(i)=1;<br>
+            elseif(yin(i)==theta)<br>
+                y(i)=yin(i);<br>
+            else<br>
+                y(i)=-1;<br>
+            end<br>
+            end<br>
+          </code>
+        </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+
+    <h2 class="list-heading"> 8. Develop a simple Ant Colony Optimization problem with MATLAB to find the
+      optimum path.</h2>
+      <h1 class="list-heading">
+        <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+        <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+      </h1>
+    <li id="8">
+      <div class="copy-content">
+        <pre>
+          <code>
+            %ant colony optimization<br>
+            xx=[3, 5];					%initial point (3, 3). we have to move to (5, 5)<br>
+            yy=[3, 5];<br>
+            plot(xx(1), yy(1), 'ko', 'LineWidth',4);<br>
+            hold on;<br>
+            startingptxxx=xx(1);<br>
+            startingptyyy=yy(1);<br>
+            error=1;        						 %initialize with any random values<br>
+            prev_error=2e7; 			 		%such that prev_error>>error<br>
+            times=1;<br>
+            savex(1)=startingptxxx;<br>
+            savey(1)=startingptyyy;<br>
+            total_ants=80; 				%greater the number of ants, more optimum the path<br>
+            while error<prev_error 		%if error>prev_error it means<br>
+                                    %that you have surpassed your destination<br>
+                if times>1<br>
+             prev_error=error;   			%so that this does not execute for the<br>
+                 end                 			%first iterstion of while loop<br>
+              <br>
+                times=times+1;<br>
+              <br>
+                for i=1:1:total_ants<br>
+                    startingptx(i)=startingptxxx+rand*0.5; 		%each ant randomly takes any<br>
+                    startingpty(i)=startingptyyy+rand*0.5; 		% position near its starting point<br>
+                    plot(startingptx(i), startingpty(i), 'go', 'LineWidth',2)<br>
+                    hold on;     <br>
+                end<br>
+              <br>
+                for i=1:1:total_ants<br>
+                    dist(i)=sqrt((5-startingptx(i))^2+(5-startingpty(i))^2);<br>
+                    e(i)=dist(i);					%greater the distance greater the error<br>
+                end<br>
+              <br>
+                for i=1:1:total_ants<br>
+                    pheromone(i)=1/e(i);<br>
+                end<br>
+              <br>
+                bestpath=find(pheromone==max(pheromone));<br>
+              <br>
+                if e(bestpath)<prev_error<br>
+                startingptxxx=startingptx(bestpath);<br>
+                startingptyyy=startingpty(bestpath);<br>
+                 plot(startingptxxx, startingptyyy, 'ro', 'LineWidth',4)<br>
+                 hold on;<br>
+                savex(times)=startingptxxx;<br>
+                savey(times)=startingptyyy;<br>
+                end<br>
+                error=e(bestpath);  <br>
+            end<br>
+            plot(savex, savey, 'r', 'LineWidth',2)<br>
+          </code>
+        </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+
+    <h2 class="list-heading"> 9. Solve a feature selection problem using Artificial Bee Colony Optimization.</h2>
+    <h1 class="list-heading">
+      <a href="#1a">1a</a> &nbsp;&nbsp;<a href="#1b">1b</a> &nbsp;&nbsp;<a href="#3">3</a> &nbsp;&nbsp;<a href="#4">4</a> &nbsp;&nbsp;
+      <a href="#5">5</a> &nbsp;&nbsp;<a href="#8">8</a> &nbsp;&nbsp;<a href="#9">9</a>
+    </h1>
+    <li id="9">
+      <div class="copy-content">
+        <pre>
+          <code>
+            %Artificial Bee Colony Optimization.<br>
+            pkg('load','statistics');<br>
+            clc;<br>
+            clear;<br>
+            close all;<br>
+            <br>
+            function i = RouletteWheelSelection(p)<br>
+              r= rand*sum(p);<br>
+              c=cumsum(p);<br>
+              i=find(r<=c,1,'first');<br>
+              end<br>
+            function z=Sphere(x)<br>
+              z=sum(x.^2);<br>
+              end<br>
+            <br>
+            <br>
+              %% Problem Definition<br>
+              CostFunction=@(x) Sphere(x);        	              % Cost Function<br>
+              nVar=5;           				 % Number of Decision Variables<br>
+              VarSize=[1 nVar];  				 % Decision Variables Matrix Size<br>
+              VarMin=-10;         				% Decision Variables Lower Bound<br>
+              VarMax= 10;        				% Decision Variables Upper Bound<br>
+            <br>
+              %% ABC Settings<br>
+              MaxIt=200;             				 % Maximum Number of Iterations<br>
+              nPop=100;               				% Population Size (Colony Size)<br>
+              nOnlooker=nPop;         			% Number of Onlooker Bees<br>
+              L=round(0.6*nVar*nPop); 			% Abandonment Limit Parameter (Trial Limit)<br>
+              a=1;                   				 % Acceleration Coefficient Upper Bound<br>
+            <br>
+              %% Initialization<br>
+              % Empty Bee Structure<br>
+              empty_bee.Position=[];<br>
+              empty_bee.Cost=[];<br>
+            <br>
+              % Initialize Population Array<br>
+              pop=repmat(empty_bee,nPop,1);<br>
+            <br>
+              % Initialize Best Solution Ever Found<br>
+              BestSol.Cost=inf;<br>
+            <br>
+              % Create Initial Population<br>
+              for i=1:nPop<br>
+              pop(i).Position=unifrnd(VarMin,VarMax,VarSize);<br>
+              pop(i).Cost=CostFunction(pop(i).Position);<br>
+              if pop(i).Cost<=BestSol.Cost<br>
+              BestSol=pop(i);<br>
+              end<br>
+              end<br>
+            <br>
+              % Abandonment Counter<br>
+              pkg load statistics<br>
+            addpath(pwd)<br>
+              C=zeros(nPop,1);<br>
+            <br>
+              % Array to Hold Best Cost Values<br>
+              BestCost=zeros(MaxIt,1);<br>
+            <br>
+              %% ABC Main Loop<br>
+            <br>
+              for it=1:MaxIt<br>
+            <br>
+              % Recruited Bees<br>
+              for i=1:nPop<br>
+              % Choose k randomly, not equal to i<br>
+              K=[1:i-1 i+1:nPop];<br>
+              k=K(randi([1 numel(K)]));<br>
+            <br>
+              % Define Acceleration Coeff.<br>
+              phi=a*unifrnd(-1,+1,VarSize);<br>
+            <br>
+              % New Bee Position<br>
+              newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);<br>
+              % Evaluation<br>
+              newbee.Cost=CostFunction(newbee.Position);<br>
+            <br>
+              % Comparision<br>
+              if newbee.Cost<=pop(i).Cost<br>
+              pop(i)=newbee;<br>
+              else<br>
+              C(i)=C(i)+1;<br>
+              end<br>
+            <br>
+              end<br>
+            <br>
+              % Calculate Fitness Values and Selection Probabilities<br>
+              F=zeros(nPop,1);<br>
+              MeanCost = mean([pop.Cost]);<br>
+              for i=1:nPop<br>
+              F(i) = exp(-pop(i).Cost/MeanCost); 		% Convert Cost to Fitness<br>
+              end<br>
+              P=F/sum(F);<br>
+            <br>
+              % Onlooker Bees<br>
+              for m=1:nOnlooker<br>
+            <br>
+              % Select Source Site<br>
+              i=RouletteWheelSelection(P);<br>
+            <br>
+              % Choose k randomly, not equal to i<br>
+              K=[1:i-1 i+1:nPop];<br>
+              k=K(randi([1 numel(K)]));<br>
+            <br>
+              % Define Acceleration Coeff.<br>
+              phi=a*unifrnd(-1,+1,VarSize);<br>
+            <br>
+              % New Bee Position<br>
+              newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);<br>
+            <br>
+              % Evaluation<br>
+              newbee.Cost=CostFunction(newbee.Position);<br>
+              % Comparision<br>
+              if newbee.Cost<=pop(i).Cost<br>
+              pop(i)=newbee;<br>
+              else<br>
+              C(i)=C(i)+1;<br>
+              end<br>
+            <br>
+              end<br>
+            <br>
+              % Scout Bees<br>
+              for i=1:nPop<br>
+              if C(i)>=L<br>
+              pop(i).Position=unifrnd(VarMin,VarMax,VarSize);<br>
+              pop(i).Cost=CostFunction(pop(i).Position);<br>
+              C(i)=0;<br>
+              end<br>
+              end<br>
+            <br>
+              % Update Best Solution Ever Found<br>
+              for i=1:nPop<br>
+              if pop(i).Cost<=BestSol.Cost<br>
+              BestSol=pop(i);<br>
+              end<br>
+              end<br>
+            <br>
+              % Store Best Cost Ever Found<br>
+              BestCost(it)=BestSol.Cost;<br>
+            <br>
+              % Display Iteration Information<br>
+              disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);<br>
+            <br>
+              end<br>
+            <br>
+              %% Results<br>
+              figure;<br>
+            <br>
+            <br>
+              %plot(BestCost,'LineWidth',2);<br>
+              semilogy(BestCost,'LineWidth',2);<br>
+              xlabel('Iteration');<br>
+              ylabel('Best Cost');<br>
+              grid on;<br>
+          </code>
+        </pre>
+      </div>
+      <button class="copy-btn"></button>
+
+    </li>
+
+
+  </ul>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
